@@ -1,19 +1,15 @@
 package learning.java.bankApp.service;
 
 
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
-import jakarta.validation.Validator;
-import learning.java.bankApp.domain.model.User;
 import learning.java.bankApp.dto.UserDto;
-import learning.java.bankApp.dto.UserDtoBuilder;
 import learning.java.bankApp.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -43,5 +39,17 @@ public class UserServiceDtoAdapter {
      //   }
 
         return userMapper.toDto(userService.create(userMapper.toUser(userDto)));
+    }
+
+    void delete(Long id)
+    {
+        userService.delete(id);
+    }
+
+    List<UserDto> findAll(){
+        return userService.findAll()
+                .stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

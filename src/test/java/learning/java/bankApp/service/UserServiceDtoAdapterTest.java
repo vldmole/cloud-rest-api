@@ -1,23 +1,23 @@
 package learning.java.bankApp.service;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ValidationException;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.xml.bind.ValidationException;
 import learning.java.bankApp.domain.model.User;
 import learning.java.bankApp.dto.UserDto;
 import learning.java.bankApp.dto.UserMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
+import learning.java.bankApp.service.exception.UserServiceException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserServiceDtoAdapterTest {
+public class UserServiceDtoAdapterTest
+{
 
     @Autowired
     UserServiceDtoAdapter userServiceDtoAdapter;
@@ -37,6 +37,14 @@ class UserServiceDtoAdapterTest {
         );
     }
 
+    private void cleanUserModel()
+    {
+        List<User> users = userService.findAll();
+        assertDoesNotThrow(()->{
+            users.stream().forEach(user->userService.delete(user.getId()));
+        });
+    }
+
     @Test
     void shouldCreateUserFromUserDtoReturningUserDto() {
 
@@ -46,6 +54,17 @@ class UserServiceDtoAdapterTest {
 
         assertNotNull(obtained);
         assertEquals(expected, obtained);
+
+        cleanUserModel();
+    }
+
+    @Test
+    void shouldDeleteUserById()
+    {
+        User user = userMapper.toUser(setUpValidUserDto());
+        assertDoesNotThrow(()->userService.create(user));
+        assertDoesNotThrow(()->userServiceDtoAdapter.delete(user.getId()));
+        assertThrows(UserServiceException.class, ()->userService.findById(user.getId()));
     }
 
     private UserDto setUpInvalidUserDto() {
@@ -63,8 +82,9 @@ class UserServiceDtoAdapterTest {
     void shouldThrowsWithInvalidUserDto(){
 
         UserDto given = setUpInvalidUserDto();
-        assertThrows(ValidationException.class, () -> userServiceDtoAdapter.create(given));
+        assertThrows(ConstraintViolationException.class, () -> userServiceDtoAdapter.create(given));
     }
+
 
     @Test
     void shouldFindTheUserAndReturnUserDto(){
@@ -76,6 +96,25 @@ class UserServiceDtoAdapterTest {
         assertNotNull(dto);
         assertEquals(userMapper.toDto(user), dto);
 
-        assertDoesNotThrow(()->userService.delete(user.getId()));
+        cleanUserModel();
     }
+
+    @Test
+    void shouldFindAllUserDtos()
+    {
+        for(UserDto dto: arrayOfUserDtos)
+            assertDoesNotThrow(()->userServiceDtoAdapter.create(dto));
+
+        List<UserDto> lstDtos = assertDoesNotThrow(()->userServiceDtoAdapter.findAll());
+        assertNotNull(lstDtos);
+        assertEquals(arrayOfUserDtos.length, lstDtos.size());
+        for(UserDto dto: arrayOfUserDtos)
+            assertTrue(lstDtos.contains(dto));
+    }
+
+    static UserDto[] arrayOfUserDtos = new UserDto[]{
+            new UserDto("Paulo Silva", "123", "123467890",new BigDecimal("15.00"),BigDecimal.valueOf(15000,2),"09876543",BigDecimal.valueOf(30_000,2)),
+            new UserDto("Maria Pereira", "163", "1232347890",BigDecimal.valueOf(2500,2),BigDecimal.valueOf(25000,2),"09436543",BigDecimal.valueOf(10_000,2)),
+            new UserDto("Clécio alvarenag", "553", "12987654890",BigDecimal.valueOf(2300,2),BigDecimal.valueOf(65000,2),"05712389",BigDecimal.valueOf(20_000,2))
+    };
 }
