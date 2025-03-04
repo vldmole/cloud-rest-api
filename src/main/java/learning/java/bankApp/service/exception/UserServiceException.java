@@ -1,4 +1,4 @@
-package learning.java.cloud_rest_api.service.exception;
+package learning.java.bankApp.service.exception;
 
 public class UserServiceException extends RuntimeException
 {

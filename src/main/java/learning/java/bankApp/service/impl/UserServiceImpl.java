@@ -1,13 +1,14 @@
-package learning.java.cloud_rest_api.service.impl;
+package learning.java.bankApp.service.impl;
 
-import learning.java.cloud_rest_api.domain.model.User;
-import learning.java.cloud_rest_api.domain.repository.UserRepository;
-import learning.java.cloud_rest_api.service.UserService;
-import learning.java.cloud_rest_api.service.exception.UserServiceException;
+import learning.java.bankApp.domain.model.User;
+import learning.java.bankApp.domain.repository.UserRepository;
+import learning.java.bankApp.service.UserService;
+import learning.java.bankApp.service.exception.UserServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -32,4 +33,20 @@ public class UserServiceImpl implements UserService
         //validation step
         return userRepository.save(user);
     }
+
+    @Override
+    public void delete(Long id) {
+
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    /*@Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }*/
 }

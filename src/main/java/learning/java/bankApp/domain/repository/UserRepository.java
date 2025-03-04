@@ -1,6 +1,6 @@
-package learning.java.cloud_rest_api.domain.repository;
+package learning.java.bankApp.domain.repository;
 
-import learning.java.cloud_rest_api.domain.model.User;
+import learning.java.bankApp.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

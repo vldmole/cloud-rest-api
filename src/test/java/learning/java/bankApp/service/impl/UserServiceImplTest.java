@@ -1,8 +1,8 @@
-package learning.java.cloud_rest_api.service.impl;
+package learning.java.bankApp.service.impl;
 
-import learning.java.cloud_rest_api.domain.model.*;
-import learning.java.cloud_rest_api.service.UserService;
-import learning.java.cloud_rest_api.service.exception.UserServiceException;
+import learning.java.bankApp.domain.model.*;
+import learning.java.bankApp.service.UserService;
+import learning.java.bankApp.service.exception.UserServiceException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,7 +58,18 @@ class UserServiceImplTest
         for(int i=0; i<user.getFeatures().size(); i++)
             assertTrue(user.getFeatures().get(i).equals(createdUser.getFeatures().get(i)));
 
+        assertDoesNotThrow(()->userService.delete(createdUser.getId()));
+    }
 
+    @Test
+    public void shouldDeleteUser()
+    {
+        List<User> users = userService.findAll();
+        for(User user : users) {
+            assertDoesNotThrow(()->userService.findById(user.getId()));
+            assertDoesNotThrow(()->userService.delete(user.getId()));
+            assertThrows(UserServiceException.class, () -> userService.findById(user.getId()));
+        }
     }
 
     private User makeFullUser()

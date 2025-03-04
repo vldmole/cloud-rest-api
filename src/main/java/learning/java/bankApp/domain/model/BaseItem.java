@@ -1,4 +1,4 @@
-package learning.java.cloud_rest_api.domain.model;
+package learning.java.bankApp.domain.model;
 
 import jakarta.persistence.*;
 
