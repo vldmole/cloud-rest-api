@@ -3,6 +3,7 @@ package learning.java.bankApp.facade;
 import learning.java.bankApp.dto.UserDto;
 import learning.java.bankApp.dto.UserMapper;
 import learning.java.bankApp.service.UserService;
+import learning.java.bankApp.service.UserServiceDtoAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,24 +13,26 @@ import java.util.stream.Collectors;
 @Service
 public class BankAppFacade
 {
-    private final UserService userService;
+    private final UserServiceDtoAdapter userService;
 
     @Autowired
-    public BankAppFacade(UserService userService) {
+    public BankAppFacade(UserServiceDtoAdapter userService) {
         this.userService = userService;
     }
 
-    public UserDto findUser(Long id) {
-
-        UserMapper mapper = new UserMapper();
-        return mapper.toDto(userService.findById(id));
+    public void createUser(UserDto userDto){
+        userService.create(userDto);
     }
-/*
+
+    public UserDto findUser(Long id) {
+        return userService.findById(id);
+    }
+
     public List<UserDto> findAll() {
-        UserMapper mapper = new UserMapper();
-        return userService.findAll()
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
-    }*/
+        return userService.findAll();
+    }
+
+    public void deleteUser(Long id) {
+        userService.delete(id);
+    }
 }

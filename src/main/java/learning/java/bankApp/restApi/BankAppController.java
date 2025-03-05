@@ -31,5 +31,6 @@ public class BankAppController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }
 

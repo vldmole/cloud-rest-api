@@ -26,12 +26,12 @@ public class UserServiceDtoAdapter {
     }
 
 
-    UserDto findById(long id) {
+    public UserDto findById(long id) {
         return userMapper.toDto(userService.findById(id));
     }
 
 
-    UserDto create(@Valid UserDto userDto) {
+    public UserDto create(@Valid UserDto userDto) {
 
       //  Set<ConstraintViolation<UserDto>> violations =validator.validate(userDto);
      //   if( violations.size() > 0 ){
@@ -41,12 +41,12 @@ public class UserServiceDtoAdapter {
         return userMapper.toDto(userService.create(userMapper.toUser(userDto)));
     }
 
-    void delete(Long id)
+    public void delete(Long id)
     {
         userService.delete(id);
     }
 
-    List<UserDto> findAll(){
+    public List<UserDto> findAll(){
         return userService.findAll()
                 .stream()
                 .map(userMapper::toDto)
