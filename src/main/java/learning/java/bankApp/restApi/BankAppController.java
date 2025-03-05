@@ -30,13 +30,8 @@ public class BankAppController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id)
     {
-        try {
-            UserDto userDto = bankAppFacade.findUser(id);
-            return ResponseEntity.ok(userDto);
-        }
-        catch(Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        UserDto userDto = bankAppFacade.findUser(id);
+        return ResponseEntity.ok(userDto);
     }
 
     @PostMapping

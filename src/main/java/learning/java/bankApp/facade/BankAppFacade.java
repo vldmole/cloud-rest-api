@@ -22,7 +22,7 @@ public class BankAppFacade
     }
 
     public UserDto findUser(Long id) {
-        return userService.findById(id);
+            return userService.findById(id);
     }
 
     public List<UserDto> findAll() {

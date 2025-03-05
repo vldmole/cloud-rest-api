@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalErrorHandler {
 
+    @ExceptionHandler(ApplicationException.class)
+    public ErrorResponse ApplicationException(ApplicationException e) {
+        return ErrorResponse
+                .builder(e, ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "Erro da Aplicação: "+ e.getMessage()))
+                .build();
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse MethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return ErrorResponse
@@ -28,13 +36,7 @@ public class GlobalErrorHandler {
                 .build();
     }
 
-    @ExceptionHandler(ApplicationException.class)
-    public ErrorResponse ApplicationException(ApplicationException e) {
-        return ErrorResponse
-                .builder(e, ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
-                        "Erro da Aplicação: "+ e.getMessage()))
-                .build();
-    }
+
 
     @ExceptionHandler(Throwable.class)
     public ErrorResponse Throwable(Throwable e) {
