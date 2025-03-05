@@ -27,7 +27,7 @@ public class BankAppController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id)
     {
         try {
@@ -42,25 +42,22 @@ public class BankAppController {
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)
     {
-        try{
-            UserDto dto = bankAppFacade.createUser(userDto);
 
-            URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(dto.id())
-                    .toUri();
+        UserDto dto = bankAppFacade.createUser(userDto);
 
-            return ResponseEntity
-                    .created(location)
-                    .body(userDto);
-        }
-        catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(dto.id())
+                .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(dto);
+
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try{
             bankAppFacade.deleteUser(id);
