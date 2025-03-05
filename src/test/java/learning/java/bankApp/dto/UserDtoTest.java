@@ -33,7 +33,7 @@ class UserDtoTest
     @Test
     public void shouldInstantiateWithoutThrows()
     {
-        UserDto userDto = new UserDto(VALID_NAME,VALID_AGENCY,VALID_ACCOUNT_NUMBER,
+        UserDto userDto = new UserDto(null,VALID_NAME,VALID_AGENCY,VALID_ACCOUNT_NUMBER,
                 VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         
         Set<ConstraintViolation<UserDto>> violations = validator.validate(userDto);
@@ -52,12 +52,12 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(INVALID_NULL_STRING,VALID_AGENCY,VALID_ACCOUNT_NUMBER, VALID_ACCOUNT_BALANCE,
+        userDto = new UserDto(null, INVALID_NULL_STRING,VALID_AGENCY,VALID_ACCOUNT_NUMBER, VALID_ACCOUNT_BALANCE,
                     VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(INVALID_EMPTY, VALID_AGENCY,VALID_ACCOUNT_NUMBER, VALID_ACCOUNT_BALANCE,
+        userDto = new UserDto(null, INVALID_EMPTY, VALID_AGENCY,VALID_ACCOUNT_NUMBER, VALID_ACCOUNT_BALANCE,
                     VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -69,13 +69,13 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME, INVALID_NULL_STRING,VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME, INVALID_NULL_STRING,VALID_ACCOUNT_NUMBER,
                     VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
         userDto =
-            new UserDto(VALID_NAME,INVALID_EMPTY,VALID_ACCOUNT_NUMBER ,
+            new UserDto(null, VALID_NAME,INVALID_EMPTY,VALID_ACCOUNT_NUMBER ,
                     VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -87,12 +87,12 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, INVALID_NULL_STRING,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, INVALID_NULL_STRING,
                     VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, INVALID_EMPTY,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, INVALID_EMPTY,
                     VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -104,7 +104,7 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER, INVALID_NULL_BIG_DECIMAL,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER, INVALID_NULL_BIG_DECIMAL,
                     VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -116,12 +116,12 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                     VALID_ACCOUNT_BALANCE, INVALID_NULL_BIG_DECIMAL, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                     VALID_ACCOUNT_BALANCE, INVALID_NEGATIVE, VALID_CARD_NUMBER, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -133,12 +133,12 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                     VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, INVALID_NULL_STRING, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME,VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                     VALID_ACCOUNT_BALANCE, INVALID_NEGATIVE, INVALID_EMPTY, VALID_CARD_LIMIT);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
@@ -149,17 +149,17 @@ class UserDtoTest
         UserDto userDto;
         Set<ConstraintViolation<UserDto>> violations;
 
-        userDto = new UserDto(VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                 VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, INVALID_NULL_BIG_DECIMAL);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                 VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, INVALID_ZERO);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());
 
-        userDto = new UserDto(VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
+        userDto = new UserDto(null, VALID_NAME, VALID_AGENCY, VALID_ACCOUNT_NUMBER,
                 VALID_ACCOUNT_BALANCE, VALID_ACCOUNT_CREDIT_LIMIT, VALID_CARD_NUMBER, INVALID_NEGATIVE);
         violations = validator.validate(userDto);
         assertTrue(!violations.isEmpty());

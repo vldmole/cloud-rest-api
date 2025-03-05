@@ -39,7 +39,9 @@ class UserDtoBuilderTest
     {
         UserDtoBuilder builder = new UserDtoBuilder();
 
-        UserDto userDto = builder.name(VALID_NAME)
+        UserDto userDto = builder
+                .id(null)
+                .name(VALID_NAME)
                 .accountAgency(VALID_AGENCY)
                 .accountNumber(VALID_ACCOUNT_NUMBER)
                 .accountBalance(VALID_ACCOUNT_BALANCE)
@@ -48,7 +50,7 @@ class UserDtoBuilderTest
                 .cardLimit(VALID_CARD_LIMIT)
                 .build();
 
-        Set<ConstraintViolation<UserDto>> violations = validator.validate(builder.build());
+        Set<ConstraintViolation<UserDto>> violations = validator.validate(userDto);
         assertTrue(violations.isEmpty());
     }
 

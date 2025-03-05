@@ -12,7 +12,9 @@ public class UserMapper {
     {
         UserDtoBuilder builder = new UserDtoBuilder();
 
-        return builder.name(user.getName())
+        return builder
+                .id(user.getId())
+                .name(user.getName())
                 .accountAgency(user.getAccount().getAgency())
                 .accountNumber(user.getAccount().getNumber())
                 .accountBalance(user.getAccount().getBalance())
@@ -25,6 +27,7 @@ public class UserMapper {
     public User toUser(UserDto userDto)
     {
         User user = new User();
+
         user.setName(userDto.name());
 
         Account account = new Account();

@@ -1,14 +1,11 @@
 package learning.java.bankApp.facade;
 
 import learning.java.bankApp.dto.UserDto;
-import learning.java.bankApp.dto.UserMapper;
-import learning.java.bankApp.service.UserService;
 import learning.java.bankApp.service.UserServiceDtoAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BankAppFacade
@@ -20,7 +17,7 @@ public class BankAppFacade
         this.userService = userService;
     }
 
-    public Long createUser(UserDto userDto){
+    public UserDto createUser(UserDto userDto){
         return userService.create(userDto);
     }
 

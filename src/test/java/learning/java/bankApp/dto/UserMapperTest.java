@@ -3,10 +3,8 @@ package learning.java.bankApp.dto;
 import learning.java.bankApp.domain.model.Account;
 import learning.java.bankApp.domain.model.Card;
 import learning.java.bankApp.domain.model.User;
-import learning.java.bankApp.service.UserServiceDtoAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -26,25 +24,27 @@ class UserMapperTest {
         Account account = new Account();
         account.setAgency("123");
         account.setNumber("1234567890");
-        account.setBalance(new BigDecimal(10.50));
-        account.setCreditLimit(new BigDecimal(15.00));
+        account.setBalance(new BigDecimal("10.50"));
+        account.setCreditLimit(new BigDecimal("15.00"));
         user.setAccount(account);
 
         Card card = new Card();
         card.setNumber("9876543210");
-        card.setCreditLimit(new BigDecimal(150.00));
+        card.setCreditLimit(new BigDecimal("150.00"));
         user.setCard(card);
     }
 
     @BeforeEach
     void setUpUserDto() {
-        userDto = new UserDto("Paulo Silva",
+        userDto = new UserDto(
+                null,
+                "Paulo Silva",
                 "1234",
                 "1234567890",
-                new BigDecimal(10.0),
-                new BigDecimal(15.00),
+                new BigDecimal("10.00"),
+                new BigDecimal("15.00"),
                 "9876543210",
-                new BigDecimal(150.00)
+                new BigDecimal("150.00")
         );
     }
 

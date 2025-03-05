@@ -2,6 +2,7 @@ package learning.java.bankApp.service;
 
 
 import jakarta.validation.Valid;
+import learning.java.bankApp.domain.model.User;
 import learning.java.bankApp.dto.UserDto;
 import learning.java.bankApp.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,15 @@ public class UserServiceDtoAdapter {
     }
 
 
-    public Long create(@Valid UserDto userDto) {
+    public UserDto create(@Valid UserDto userDto) {
 
       //  Set<ConstraintViolation<UserDto>> violations =validator.validate(userDto);
      //   if( violations.size() > 0 ){
       //    throw new ValidationException(violations.toString());
      //   }
-
-        return userService.create(userMapper.toUser(userDto)).getId();
+        User userData = userMapper.toUser(userDto);
+        User user = userService.create(userData);
+        return userMapper.toDto(user);
     }
 
     public void delete(Long id)

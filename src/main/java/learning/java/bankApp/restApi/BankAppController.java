@@ -3,7 +3,6 @@ package learning.java.bankApp.restApi;
 import jakarta.validation.Valid;
 import learning.java.bankApp.dto.UserDto;
 import learning.java.bankApp.facade.BankAppFacade;
-import learning.java.bankApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,12 +43,12 @@ public class BankAppController {
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)
     {
         try{
-            Long id = bankAppFacade.createUser(userDto);
+            UserDto dto = bankAppFacade.createUser(userDto);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(id)
+                    .buildAndExpand(dto.id())
                     .toUri();
 
             return ResponseEntity
@@ -62,7 +61,7 @@ public class BankAppController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try{
             bankAppFacade.deleteUser(id);
             return ResponseEntity.ok().build();

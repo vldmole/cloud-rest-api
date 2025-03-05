@@ -6,6 +6,9 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public record UserDto(
+
+        Long id,
+
         @NotBlank(message = "'name' cannot be 'null' or 'empty'.")
         @Size(min=5, max=35, message="length of 'name' should be in range [5,35].")
         String name,
