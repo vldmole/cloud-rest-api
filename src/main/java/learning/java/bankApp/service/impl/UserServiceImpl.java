@@ -2,13 +2,12 @@ package learning.java.bankApp.service.impl;
 
 import learning.java.bankApp.domain.model.User;
 import learning.java.bankApp.domain.repository.UserRepository;
+import learning.java.bankApp.exception.ApplicationException;
 import learning.java.bankApp.service.UserService;
-import learning.java.bankApp.service.exception.UserServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService
     public User findById(Long id)
     {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserServiceException("User not found i:"+id));
+                .orElseThrow(() -> new ApplicationException("User not found i:"+id));
     }
 
     @Override

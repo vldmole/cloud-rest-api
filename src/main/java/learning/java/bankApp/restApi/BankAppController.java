@@ -42,7 +42,6 @@ public class BankAppController {
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)
     {
-
         UserDto dto = bankAppFacade.createUser(userDto);
 
         URI location = ServletUriComponentsBuilder

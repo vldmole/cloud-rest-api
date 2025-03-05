@@ -17,7 +17,7 @@ public class BankAppFacade
         this.userService = userService;
     }
 
-    public UserDto createUser(UserDto userDto){
+    public UserDto createUser(UserDto userDto) {
         return userService.create(userDto);
     }
 
