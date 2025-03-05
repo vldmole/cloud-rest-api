@@ -31,14 +31,14 @@ public class UserServiceDtoAdapter {
     }
 
 
-    public UserDto create(@Valid UserDto userDto) {
+    public Long create(@Valid UserDto userDto) {
 
       //  Set<ConstraintViolation<UserDto>> violations =validator.validate(userDto);
      //   if( violations.size() > 0 ){
       //    throw new ValidationException(violations.toString());
      //   }
 
-        return userMapper.toDto(userService.create(userMapper.toUser(userDto)));
+        return userService.create(userMapper.toUser(userDto)).getId();
     }
 
     public void delete(Long id)

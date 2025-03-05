@@ -7,7 +7,9 @@ import learning.java.bankApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,9 +22,15 @@ public class BankAppController {
         this.bankAppFacade = bankAppFacade;
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    @GetMapping
+    public ResponseEntity<List<UserDto>> findAllUsers() {
+        List<UserDto> users = bankAppFacade.findAll();
+        return ResponseEntity.ok(users);
+    }
 
+    @GetMapping("/id")
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id)
+    {
         try {
             UserDto userDto = bankAppFacade.findUser(id);
             return ResponseEntity.ok(userDto);
@@ -32,5 +40,36 @@ public class BankAppController {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)
+    {
+        try{
+            Long id = bankAppFacade.createUser(userDto);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(id)
+                    .toUri();
+
+            return ResponseEntity
+                    .created(location)
+                    .body(userDto);
+        }
+        catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/id")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        try{
+            bankAppFacade.deleteUser(id);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
 

@@ -20,8 +20,8 @@ public class BankAppFacade
         this.userService = userService;
     }
 
-    public void createUser(UserDto userDto){
-        userService.create(userDto);
+    public Long createUser(UserDto userDto){
+        return userService.create(userDto);
     }
 
     public UserDto findUser(Long id) {
