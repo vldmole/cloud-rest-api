@@ -1,8 +1,8 @@
 package learning.java.bankApp.service.impl;
 
 import learning.java.bankApp.domain.model.*;
+import learning.java.bankApp.exception.ApplicationException;
 import learning.java.bankApp.service.UserService;
-import learning.java.bankApp.service.exception.UserServiceException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ class UserServiceImplTest
     @Test
     public void shouldThrowExceptionWithInvalidUserId()
     {
-        assertThrows(UserServiceException.class, ()->userService.findById(-1l));
+        assertThrows(ApplicationException.class, ()->userService.findById(-1L));
     }
 
     @Test
@@ -46,17 +46,17 @@ class UserServiceImplTest
         assertEquals(user.getId(), createdUser.getId());
         assertEquals(user.getName(), createdUser.getName());
 
-        assertTrue(user.getAccount().equals(createdUser.getAccount()));
+        assertEquals(user.getAccount(), createdUser.getAccount());
 
-        assertTrue(user.getCard().equals(createdUser.getCard()));
+        assertEquals(user.getCard(), createdUser.getCard());
 
         assertEquals(user.getNews().size(), createdUser.getNews().size());
         for(int i=0; i<user.getNews().size(); i++)
-            assertTrue(user.getNews().get(i).equals(createdUser.getNews().get(i)));
+            assertEquals(user.getNews().get(i), createdUser.getNews().get(i));
 
         assertEquals(user.getFeatures().size(), createdUser.getFeatures().size());
         for(int i=0; i<user.getFeatures().size(); i++)
-            assertTrue(user.getFeatures().get(i).equals(createdUser.getFeatures().get(i)));
+            assertEquals(user.getFeatures().get(i), createdUser.getFeatures().get(i));
 
         assertDoesNotThrow(()->userService.delete(createdUser.getId()));
     }
@@ -68,7 +68,7 @@ class UserServiceImplTest
         for(User user : users) {
             assertDoesNotThrow(()->userService.findById(user.getId()));
             assertDoesNotThrow(()->userService.delete(user.getId()));
-            assertThrows(UserServiceException.class, () -> userService.findById(user.getId()));
+            assertThrows(ApplicationException.class, () -> userService.findById(user.getId()));
         }
     }
 

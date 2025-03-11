@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolationException;
 import learning.java.bankApp.domain.model.User;
 import learning.java.bankApp.dto.UserDto;
 import learning.java.bankApp.dto.UserMapper;
-import learning.java.bankApp.service.exception.UserServiceException;
+import learning.java.bankApp.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +52,7 @@ public class UserServiceDtoAdapterTest
 
         assertDoesNotThrow(()->userServiceDtoAdapter.delete(user.getId()));
 
-        assertThrows(UserServiceException.class, ()->userService.findById(user.getId()));
+        assertThrows(ApplicationException.class, ()->userService.findById(user.getId()));
     }
 
     @Test

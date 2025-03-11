@@ -36,8 +36,6 @@ public class GlobalErrorHandler {
                 .build();
     }
 
-
-
     @ExceptionHandler(Throwable.class)
     public ErrorResponse Throwable(Throwable e) {
         return ErrorResponse
