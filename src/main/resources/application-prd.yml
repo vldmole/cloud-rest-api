@@ -1,11 +1,10 @@
   spring:
     datasource:
       driverClassName: org.postgresql.Driver
-      url: jdbc.postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+      url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
       username: ${PGUSER}
       password: ${PGPASSWORD}
     jpa:
-      url: jdbc.postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
       open-in-view: false
       hibernate:
         ddl-auto: update
